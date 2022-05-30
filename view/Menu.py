@@ -5,35 +5,36 @@
 
 
 import PySimpleGUI as sg
+import pandas as pd
 from PySimpleGUI.PySimpleGUI import WIN_CLOSED
 
 
 def PrimeiraTela():
     sg.theme('LightGrey')
-    layout = [[sg.Text('Input', size=(30, 1), font='Arial', justification='center')],
-              [sg.Text('Fixed Acidity', size=(12, 1)), sg.InputText(key='fixedAcidity', size=(20, 1)),
-               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='fixedAcidityCombo')],
-              [sg.Text('Volatile acidity', size=(12, 1)), sg.InputText(key='volatileAcidity', size=(20, 1)),
-               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='volatileAcidityCombo')],
-              [sg.Text('Citric acidity', size=(12, 1)), sg.InputText(key='citricAcidity', size=(20, 1)),
-               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='citricAcidCombo')],
-              [sg.Text('Residual sugar', size=(12, 1)), sg.InputText(key='residualSugar', size=(20, 1)),
-               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='residualSugarCombo')],
-              [sg.Text('Chlorides', size=(12, 1)), sg.InputText(key='chlorides', size=(20, 1)),
+    layout = [[sg.Text('Input', size=(45, 1), font='Arial', justification='center')],
+              [sg.Text('Fixed Acidity (4.6 - 15.9)', size=(23, 1)), sg.InputText(key='fixedAcidity', default_text='7.8' , size=(20, 1)),
+               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=3, size=(2, 1), key='fixedAcidityCombo')],
+              [sg.Text('Volatile acidity (0.1 - 1.6)', size=(23, 1)), sg.InputText(key='volatileAcidity', default_text='0.880' , size=(20, 1)),
+               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=3, size=(2, 1), key='volatileAcidityCombo')],
+              [sg.Text('Citric acidity (0.0 - 1.0)', size=(23, 1)), sg.InputText(key='citricAcidity', default_text='0' , size=(20, 1)),
+               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=3, size=(2, 1), key='citricAcidCombo')],
+              [sg.Text('Residual sugar (0.9 - 15.5)', size=(23, 1)), sg.InputText(key='residualSugar', default_text='2.6' , size=(20, 1)),
+               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=5, size=(2, 1), key='residualSugarCombo')],
+              [sg.Text('Chlorides (0.01 - 0.061)', size=(23, 1)), sg.InputText(key='chlorides', default_text='0.098' , size=(20, 1)),
                sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='chloridesCombo')],
-              [sg.Text('Free sulfur dioxide', size=(12, 1)), sg.InputText(key='freeSulfurDioxide', size=(20, 1)),
+              [sg.Text('Free sulfur dioxide (1.0 - 72.0)', size=(23, 1)), sg.InputText(key='freeSulfurDioxide', default_text='25.0' , size=(20, 1)),
                sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='freeSulfurDioxideCombo')],
-              [sg.Text('Total sulfur dioxide', size=(12, 1)), sg.InputText(key='totalSulfurDioxide', size=(20, 1)),
+              [sg.Text('Total sulfur dioxide (6.0 - 289.0)', size=(23, 1)), sg.InputText(key='totalSulfurDioxide', default_text='67.0' , size=(20, 1)),
                sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='totalSulfurDioxideCombo')],
-              [sg.Text('Density', size=(12, 1)), sg.InputText(key='density', size=(20, 1)),
+              [sg.Text('Density (0.990 - 1.004)', size=(23, 1)), sg.InputText(key='density', default_text='0.997' , size=(20, 1)),
                sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='densityCombo')],
-              [sg.Text('pH', size=(12, 1)), sg.InputText(key='pH', size=(20, 1)),
-               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='pHCombo')],
-              [sg.Text('Sulphates', size=(12, 1)), sg.InputText(key='sulphates', size=(20, 1)),
+              [sg.Text('pH (2.7 - 4.0)', size=(23, 1)), sg.InputText(key='pH', default_text='3.2' , size=(20, 1)),
+               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=6, size=(2, 1), key='pHCombo')],
+              [sg.Text('Sulphates (0.3 - 2.0)', size=(23, 1)), sg.InputText(key='sulphates', default_text='0.68' , size=(20, 1)),
                sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='sulphatesCombo')],
-              [sg.Text('Alcohol', size=(12, 1)), sg.InputText(key='alcohol', size=(20, 1)),
-               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=1, size=(2, 1), key='alcoholCombo')],
-              [sg.Button('Calculate', size=(15, 1), font='Arial'), sg.Button('Cancel', size=(15, 1), font='Arial')]]
+              [sg.Text('Alcohol (8.4 - 14.9)', size=(23, 1)), sg.InputText(key='alcohol', default_text='9.8' , size=(20, 1)),
+               sg.Combo([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], default_value=5, size=(2, 1), key='alcoholCombo')],
+              [sg.Button('Calculate', size=(20, 1), font='Arial'), sg.Button('Cancel', size=(20, 1), font='Arial')]]
 
     return sg.Window('Red Wine Quality', layout, finalize=True)
 
@@ -124,16 +125,23 @@ def CarregaPrimeiraTela():
     return dadosDoUsuario, pesosDosAtributos
 
 
-def SegundaTela():
-    sg.theme('LightGrey')
-    layout = [[sg.Text('Output', size=(30, 1), font='Arial', justification='center')],
+def SegundaTela(dataFrame, dadosDoUsuario, pesosDosAtributos):
+    sg.theme('LightGrey') 
+    dados = pd.DataFrame([dadosDoUsuario])
+    pesos = pd.DataFrame([pesosDosAtributos])
+    layout = [[sg.Text('User case input', size=(30, 1), font='Arial', justification='center')],
+              [sg.Table(values = dados.values.tolist(), num_rows = 1, headings = list(dados))],
+              [sg.Text('Input weights', size=(30, 1), font='Arial', justification='center')],
+              [sg.Table(values = pesos.values.tolist(), num_rows = 1, headings = list(pesos))],
+              [sg.Text('Output', size=(30, 1), font='Arial', justification='center')],
+              [sg.Table(values = dataFrame.values.tolist(), headings = list(dataFrame))],
               [sg.Button('Back', size=(15, 1), font='Arial'), sg.Button('Cancel', size=(15, 1), font='Arial')]]
 
     return sg.Window('Result', layout, finalize=True)
 
 
-def CarregaSegundaTela():
-    window = SegundaTela()
+def CarregaSegundaTela(dataFrame, dadosDoUsuario, pesosDosAtributos):
+    window = SegundaTela(dataFrame, dadosDoUsuario, pesosDosAtributos)
 
     while True:
         event, values = window.read()
@@ -141,7 +149,7 @@ def CarregaSegundaTela():
             break
         elif event == 'Back':
             window.close()
-            PrimeiraTela()
+            CarregaPrimeiraTela()
 
     window.close()
 

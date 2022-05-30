@@ -6,4 +6,4 @@ dataFrame = carregaDadosDoCsv()
 dadosDoUsuario,pesosDosAtributos = CarregaPrimeiraTela()
 dataFrameResultante = CalculaSimilaridade(dataFrame, dadosDoUsuario, pesosDosAtributos)
 
-CarregaSegundaTela(dataFrameResultante)
+CarregaSegundaTela(dataFrameResultante,dadosDoUsuario,pesosDosAtributos)
