@@ -6,6 +6,9 @@
 
 import PySimpleGUI as sg
 import pandas as pd
+from domain.CsvReader import *
+from view.Menu import *
+from domain.QualideDoVinhoRbc import CalculaSimilaridade
 from PySimpleGUI.PySimpleGUI import WIN_CLOSED
 
 
@@ -44,6 +47,7 @@ def CarregaPrimeiraTela():
 
     while True:
         event, values = window.read()
+        dataFrame = carregaDadosDoCsv()
         if event == sg.WIN_CLOSED or event == 'Cancel':  # if user closes window or clicks cancel
             break
         elif event == 'Calculate':
@@ -117,6 +121,8 @@ def CarregaPrimeiraTela():
                     }
 
                     window.close()
+                    dataFrameResultante = CalculaSimilaridade(dataFrame, dadosDoUsuario, pesosDosAtributos)
+                    CarregaSegundaTela(dataFrameResultante, dadosDoUsuario, pesosDosAtributos)
                 except ValueError:
                     print(f'Exceção: Valor inserido inválido.')
                     sg.popup('PUT VALID DATA!', font='Arial')
@@ -129,13 +135,13 @@ def SegundaTela(dataFrame, dadosDoUsuario, pesosDosAtributos):
     sg.theme('LightGrey') 
     dados = pd.DataFrame([dadosDoUsuario])
     pesos = pd.DataFrame([pesosDosAtributos])
-    layout = [[sg.Text('User case input', size=(30, 1), font='Arial', justification='center')],
-              [sg.Table(values = dados.values.tolist(), num_rows = 1, headings = list(dados))],
-              [sg.Text('Input weights', size=(30, 1), font='Arial', justification='center')],
-              [sg.Table(values = pesos.values.tolist(), num_rows = 1, headings = list(pesos))],
-              [sg.Text('Output', size=(30, 1), font='Arial', justification='center')],
-              [sg.Table(values = dataFrame.values.tolist(), headings = list(dataFrame))],
-              [sg.Button('Back', size=(15, 1), font='Arial'), sg.Button('Cancel', size=(15, 1), font='Arial')]]
+    layout = [[sg.Text('User case input:', size=(15, 1), font='Arial', justification='left'),
+               sg.Table(values = dados.values.tolist(), num_rows = 1, headings = list(dados), size=(5, 1))],
+              [sg.Text('Input weights:', size=(15, 1), font='Arial', justification='left'),
+               sg.Table(values = pesos.values.tolist(), num_rows = 1, headings = list(pesos), size=(5, 1))],
+              [sg.Text('Output:', size=(15, 1), font='Arial', justification='left')],
+              [sg.Table(values = dataFrame.values.tolist(), headings = list(dataFrame), size=(5, 20))],
+              [sg.Button('Back', size=(20, 1), font='Arial'), sg.Button('Cancel', size=(20, 1), font='Arial')]]
 
     return sg.Window('Result', layout, finalize=True)
 
