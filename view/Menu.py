@@ -128,8 +128,6 @@ def CarregaPrimeiraTela():
                     sg.popup('PUT VALID DATA!', font='Arial')
 
     window.close()
-    return dadosDoUsuario, pesosDosAtributos
-
 
 def SegundaTela(dataFrame, dadosDoUsuario, pesosDosAtributos):
     sg.theme('LightGrey') 
