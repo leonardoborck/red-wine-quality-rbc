@@ -4,7 +4,7 @@
  
 For run this project you need download "run" folder and run the archive "RedWineQuality.exe"
 
-or if you try this code
+or if you try this code.
 before run:
  - pip install pandas
  - pip install pysimplegui
